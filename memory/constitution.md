@@ -1,50 +1,59 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# دستور [PROJECT_NAME]
+<!-- مثال: دستور المواصفات، دستور تدفق المهام، ... -->
 
-## Core Principles
+## المبادئ الأساسية (Core Principles)
 
 ### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
+<!-- مثال: I. Library-First -->
 [PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+<!-- مثال: تبدأ كل ميزة كمكتبة مستقلة؛ المكتبات يجب أن تكون قابلة للاختبار مستقلة ومُوثَّقة؛ يجب أن يكون لها غرض واضح -->
 
 ### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
+<!-- مثال: II. CLI Interface -->
 [PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+<!-- مثال: كل مكتبة تُعرَض عبر CLI؛ بروتوكول نصي: stdin/args → stdout، والأخطاء → stderr؛ دعم تنسيق JSON + تنسيق بشري -->
 
 ### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
+<!-- مثال: III. Test-First (NON-NEGOTIABLE) -->
 [PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+<!-- مثال: TDD إلزامي: كتابة الاختبارات → موافقة المستخدم → الاختبارات تفشل → ثم التنفيذ؛ دورة Red-Green-Refactor مفروضة بصرامة -->
 
 ### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
+<!-- مثال: IV. Integration Testing -->
 [PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+<!-- مثال: مجالات التركيز: اختبارات عقود المكتبات الجديدة، تغييرات العقود، الاتصال بين الخدمات، المخططات المشتركة -->
 
 ### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
+<!-- مثال: V. Observability / VI. Versioning / VII. Simplicity -->
 [PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+<!-- مثال: الإدخال/الإخراج النصي يسهل التتبع؛ مطلوب تسجيل منظّم؛ أو: تنسيق MAJOR.MINOR.BUILD؛ أو: البدء ببساطة واتباع YAGNI -->
 
 ## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+<!-- مثال: قيود إضافية، متطلبات أمن، معايير أداء، ... -->
 
 [SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+<!-- مثال: متطلبات حزمة تقنية، معايير امتثال، سياسات نشر، ... -->
 
 ## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+<!-- مثال: سير عمل التطوير، عملية المراجعة، بوابات الجودة، ... -->
 
 [SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+<!-- مثال: متطلبات مراجعة الكود، بوابات الاختبار، عملية الموافقة على النشر، ... -->
 
-## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+## الحوكمة (Governance)
+<!-- مثال: الدستور يتفوّق على أي ممارسات أخرى؛ التعديلات تتطلب توثيقاً وخطة ترحيل -->
 
 [GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+<!-- مثال: كل Pull Request يجب أن يتحقق من الالتزام؛ التعقيد يجب تبريره؛ استخدم [GUIDANCE_FILE] للإرشاد أثناء التنفيذ -->
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**الإصدار**: [CONSTITUTION_VERSION] | **تاريخ الإقرار**: [RATIFICATION_DATE] | **آخر تعديل**: [LAST_AMENDED_DATE]
+<!-- مثال: الإصدار: 2.1.1 | أُقرّ: 2025-06-13 | آخر تعديل: 2025-07-16 -->
+
+---
+<!-- إرشادات التعبئة (تحذف عند الاستقرار):
+1. استبدل أسماء المبادئ بوصف عربي واضح + (اسم إنجليزي مختصر إن لزم)
+2. لا تُدخل قرارات تنفيذ (لغات، أطر) هنا – هذا في الخطة /plan
+3. أي مبدأ غير مُعتمد احذفه بالكامل
+4. استخدم لغة تقريرية إلزامية: "يجب"، "لا يُسمح"، "مطلوب"
+5. حدّث الحقول السفلية عند كل تعديل (الإصدار + التاريخ)
+-->

@@ -9,8 +9,8 @@
 #
 # OPTIONS:
 #   --json              Output in JSON format
-#   --require-tasks     Require tasks.md to exist (for implementation phase)
-#   --include-tasks     Include tasks.md in AVAILABLE_DOCS list
+#   --require-tasks     يتطلب وجود ملف مهام.md (مرحلة التنفيذ)
+#   --include-tasks     تضمين ملف مهام.md في قائمة AVAILABLE_DOCS
 #   --paths-only        Only output path variables (no validation)
 #   --help, -h          Show help message
 #
@@ -49,8 +49,8 @@ Consolidated prerequisite checking for Spec-Driven Development workflow.
 
 OPTIONS:
   --json              Output in JSON format
-  --require-tasks     Require tasks.md to exist (for implementation phase)
-  --include-tasks     Include tasks.md in AVAILABLE_DOCS list
+  --require-tasks     يتطلب وجود ملف مهام.md (مرحلة التنفيذ)
+  --include-tasks     تضمين ملف مهام.md في قائمة AVAILABLE_DOCS
   --paths-only        Only output path variables (no prerequisite validation)
   --help, -h          Show this help message
 
@@ -107,15 +107,15 @@ if [[ ! -d "$FEATURE_DIR" ]]; then
 fi
 
 if [[ ! -f "$IMPL_PLAN" ]]; then
-    echo "ERROR: plan.md not found in $FEATURE_DIR" >&2
-    echo "Run /plan first to create the implementation plan." >&2
+    echo "ERROR: تخطيط.md غير موجود في $FEATURE_DIR" >&2
+    echo "شغّل /plan أولاً لإنشاء خطة التنفيذ." >&2
     exit 1
 fi
 
-# Check for tasks.md if required
+# التحقق من وجود ملف مهام.md إذا كان مطلوباً
 if $REQUIRE_TASKS && [[ ! -f "$TASKS" ]]; then
-    echo "ERROR: tasks.md not found in $FEATURE_DIR" >&2
-    echo "Run /tasks first to create the task list." >&2
+    echo "ERROR: مهام.md غير موجود في $FEATURE_DIR" >&2
+    echo "شغّل /tasks أولاً لتوليد قائمة المهام." >&2
     exit 1
 fi
 
@@ -123,19 +123,19 @@ fi
 docs=()
 
 # Always check these optional docs
-[[ -f "$RESEARCH" ]] && docs+=("research.md")
-[[ -f "$DATA_MODEL" ]] && docs+=("data-model.md")
+[[ -f "$RESEARCH" ]] && docs+=("بحث.md")
+[[ -f "$DATA_MODEL" ]] && docs+=("نموذج-البيانات.md")
 
 # Check contracts directory (only if it exists and has files)
 if [[ -d "$CONTRACTS_DIR" ]] && [[ -n "$(ls -A "$CONTRACTS_DIR" 2>/dev/null)" ]]; then
-    docs+=("contracts/")
+    docs+=("العقود/")
 fi
 
-[[ -f "$QUICKSTART" ]] && docs+=("quickstart.md")
+[[ -f "$QUICKSTART" ]] && docs+=("بدء-سريع.md")
 
 # Include tasks.md if requested and it exists
 if $INCLUDE_TASKS && [[ -f "$TASKS" ]]; then
-    docs+=("tasks.md")
+    docs+=("مهام.md")
 fi
 
 # Output results
@@ -155,12 +155,12 @@ else
     echo "AVAILABLE_DOCS:"
     
     # Show status of each potential document
-    check_file "$RESEARCH" "research.md"
-    check_file "$DATA_MODEL" "data-model.md"
-    check_dir "$CONTRACTS_DIR" "contracts/"
-    check_file "$QUICKSTART" "quickstart.md"
+check_file "$RESEARCH" "بحث.md"
+check_file "$DATA_MODEL" "نموذج-البيانات.md"
+check_dir "$CONTRACTS_DIR" "العقود/"
+check_file "$QUICKSTART" "بدء-سريع.md"
     
     if $INCLUDE_TASKS; then
-        check_file "$TASKS" "tasks.md"
+        check_file "$TASKS" "مهام.md"
     fi
 fi

@@ -103,13 +103,13 @@ function Get-FeaturePathsEnv {
         CURRENT_BRANCH = $currentBranch
         HAS_GIT       = $hasGit
         FEATURE_DIR   = $featureDir
-        FEATURE_SPEC  = Join-Path $featureDir 'spec.md'
-        IMPL_PLAN     = Join-Path $featureDir 'plan.md'
-        TASKS         = Join-Path $featureDir 'tasks.md'
-        RESEARCH      = Join-Path $featureDir 'research.md'
-        DATA_MODEL    = Join-Path $featureDir 'data-model.md'
-        QUICKSTART    = Join-Path $featureDir 'quickstart.md'
-        CONTRACTS_DIR = Join-Path $featureDir 'contracts'
+        FEATURE_SPEC  = Join-Path $featureDir 'مواصفة.md'
+        IMPL_PLAN     = Join-Path $featureDir 'تخطيط.md'
+        TASKS         = Join-Path $featureDir 'مهام.md'
+        RESEARCH      = Join-Path $featureDir 'بحث.md'
+        DATA_MODEL    = Join-Path $featureDir 'نموذج-البيانات.md'
+        QUICKSTART    = Join-Path $featureDir 'بدء-سريع.md'
+        CONTRACTS_DIR = Join-Path $featureDir 'العقود'
     }
 }
 

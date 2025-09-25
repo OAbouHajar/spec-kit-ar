@@ -1,127 +1,123 @@
-# Tasks: [FEATURE NAME]
+# المهام: [FEATURE NAME]
 
-**Input**: Design documents from `/specs/[###-feature-name]/`
-**Prerequisites**: plan.md (required), research.md, data-model.md, contracts/
+**المدخل**: مستندات التصميم من المسار `/specs/[###-feature-name]/`  
+**المتطلبات**: `plan.md` (إلزامي)، و `research.md`، و `data-model.md`، ومجلد `contracts/`
 
-## Execution Flow (main)
+## تدفق التنفيذ (main)
 ```
-1. Load plan.md from feature directory
-   → If not found: ERROR "No implementation plan found"
-   → Extract: tech stack, libraries, structure
-2. Load optional design documents:
-   → data-model.md: Extract entities → model tasks
-   → contracts/: Each file → contract test task
-   → research.md: Extract decisions → setup tasks
-3. Generate tasks by category:
-   → Setup: project init, dependencies, linting
-   → Tests: contract tests, integration tests
-   → Core: models, services, CLI commands
-   → Integration: DB, middleware, logging
-   → Polish: unit tests, performance, docs
-4. Apply task rules:
-   → Different files = mark [P] for parallel
-   → Same file = sequential (no [P])
-   → Tests before implementation (TDD)
-5. Number tasks sequentially (T001, T002...)
-6. Generate dependency graph
-7. Create parallel execution examples
-8. Validate task completeness:
-   → All contracts have tests?
-   → All entities have models?
-   → All endpoints implemented?
-9. Return: SUCCESS (tasks ready for execution)
-```
-
-## Format: `[ID] [P?] Description`
-- **[P]**: Can run in parallel (different files, no dependencies)
-- Include exact file paths in descriptions
-
-## Path Conventions
-- **Single project**: `src/`, `tests/` at repository root
-- **Web app**: `backend/src/`, `frontend/src/`
-- **Mobile**: `api/src/`, `ios/src/` or `android/src/`
-- Paths shown below assume single project - adjust based on plan.md structure
-
-## Phase 3.1: Setup
-- [ ] T001 Create project structure per implementation plan
-- [ ] T002 Initialize [language] project with [framework] dependencies
-- [ ] T003 [P] Configure linting and formatting tools
-
-## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
-**CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [ ] T004 [P] Contract test POST /api/users in tests/contract/test_users_post.py
-- [ ] T005 [P] Contract test GET /api/users/{id} in tests/contract/test_users_get.py
-- [ ] T006 [P] Integration test user registration in tests/integration/test_registration.py
-- [ ] T007 [P] Integration test auth flow in tests/integration/test_auth.py
-
-## Phase 3.3: Core Implementation (ONLY after tests are failing)
-- [ ] T008 [P] User model in src/models/user.py
-- [ ] T009 [P] UserService CRUD in src/services/user_service.py
-- [ ] T010 [P] CLI --create-user in src/cli/user_commands.py
-- [ ] T011 POST /api/users endpoint
-- [ ] T012 GET /api/users/{id} endpoint
-- [ ] T013 Input validation
-- [ ] T014 Error handling and logging
-
-## Phase 3.4: Integration
-- [ ] T015 Connect UserService to DB
-- [ ] T016 Auth middleware
-- [ ] T017 Request/response logging
-- [ ] T018 CORS and security headers
-
-## Phase 3.5: Polish
-- [ ] T019 [P] Unit tests for validation in tests/unit/test_validation.py
-- [ ] T020 Performance tests (<200ms)
-- [ ] T021 [P] Update docs/api.md
-- [ ] T022 Remove duplication
-- [ ] T023 Run manual-testing.md
-
-## Dependencies
-- Tests (T004-T007) before implementation (T008-T014)
-- T008 blocks T009, T015
-- T016 blocks T018
-- Implementation before polish (T019-T023)
-
-## Parallel Example
-```
-# Launch T004-T007 together:
-Task: "Contract test POST /api/users in tests/contract/test_users_post.py"
-Task: "Contract test GET /api/users/{id} in tests/contract/test_users_get.py"
-Task: "Integration test registration in tests/integration/test_registration.py"
-Task: "Integration test auth in tests/integration/test_auth.py"
+1. تحميل plan.md من مجلد الميزة
+   → إن لم يوجد: خطأ "لا توجد خطة تنفيذ"
+   → استخراج: التقنية، المكتبات، البنية
+2. تحميل مستندات التصميم الاختيارية:
+   → data-model.md: استخراج الكيانات → مهام النمذجة
+   → contracts/: كل ملف → مهمة اختبار عقد
+   → research.md: استخراج القرارات → مهام الإعداد
+3. توليد المهام حسب الفئة:
+   → Setup: التهيئة، الاعتمادات، الفحص (lint)
+   → Tests: اختبارات العقود، اختبارات التكامل
+   → Core: النماذج، الخدمات، أوامر CLI
+   → Integration: قاعدة البيانات، الطبقة الوسطى، التسجيل
+   → Polish: اختبارات وحدات، أداء، توثيق
+4. تطبيق قواعد المهام:
+   → ملفات مختلفة = وسم [P] (تنفيذ متوازٍ)
+   → نفس الملف = تسلسل (بدون [P])
+   → الاختبارات قبل التنفيذ (TDD)
+5. ترقيم المهام (T001, T002…)
+6. توليد مخطط التبعيات
+7. إنشاء أمثلة للتنفيذ المتوازي
+8. التحقق من اكتمال التغطية:
+   → هل لكل عقد اختبار؟
+   → هل لكل كيان نموذج؟
+   → هل كل Endpoint منفّذ؟
+9. إرجاع: SUCCESS (المهام جاهزة للتنفيذ)
 ```
 
-## Notes
-- [P] tasks = different files, no dependencies
-- Verify tests fail before implementing
-- Commit after each task
-- Avoid: vague tasks, same file conflicts
+## الصيغة: `[ID] [P?] الوصف`
+- **[P]**: يمكن تنفيذ المهمة بالتوازي (ملف مستقل، لا تبعية)
+- يجب تضمين المسار الدقيق للملف
 
-## Task Generation Rules
-*Applied during main() execution*
+## اصطلاحات المسارات
+- **مشروع منفرد**: `src/` و `tests/` في الجذر
+- **تطبيق ويب**: `backend/src/` و `frontend/src/`
+- **تطبيق جوّال**: `api/src/` و `ios/src/` أو `android/src/`
+- الأمثلة أدناه تفترض مشروعاً منفرداً (عدّل حسب خطة التنفيذ)
 
-1. **From Contracts**:
-   - Each contract file → contract test task [P]
-   - Each endpoint → implementation task
-   
-2. **From Data Model**:
-   - Each entity → model creation task [P]
-   - Relationships → service layer tasks
-   
-3. **From User Stories**:
-   - Each story → integration test [P]
-   - Quickstart scenarios → validation tasks
+## المرحلة 3.1: الإعداد (Setup)
+- [ ] T001 إنشاء هيكل المشروع وفق خطة التنفيذ
+- [ ] T002 تهيئة مشروع [اللغة] مع اعتمادات [الإطار]
+- [ ] T003 [P] إعداد أدوات الفحص والتنسيق (Lint/Format)
 
-4. **Ordering**:
-   - Setup → Tests → Models → Services → Endpoints → Polish
-   - Dependencies block parallel execution
+## المرحلة 3.2: الاختبارات أولاً (TDD) ⚠️ يجب إكمالها قبل 3.3
+**هام: يجب كتابة هذه الاختبارات وأن تفشل قبل أي تنفيذ**
+- [ ] T004 [P] اختبار عقد POST /api/users في tests/contract/test_users_post.py
+- [ ] T005 [P] اختبار عقد GET /api/users/{id} في tests/contract/test_users_get.py
+- [ ] T006 [P] اختبار تكامل تسجيل المستخدم في tests/integration/test_registration.py
+- [ ] T007 [P] اختبار تكامل سير المصادقة في tests/integration/test_auth.py
 
-## Validation Checklist
-*GATE: Checked by main() before returning*
+## المرحلة 3.3: التنفيذ الأساسي (بعد فشل الاختبارات)
+- [ ] T008 [P] نموذج User في src/models/user.py
+- [ ] T009 [P] خدمة UserService (عمليات CRUD) في src/services/user_service.py
+- [ ] T010 [P] أمر CLI --create-user في src/cli/user_commands.py
+- [ ] T011 تنفيذ Endpoint ‏POST /api/users
+- [ ] T012 تنفيذ Endpoint ‏GET /api/users/{id}
+- [ ] T013 التحقق من المدخلات (Input Validation)
+- [ ] T014 معالجة الأخطاء والتسجيل (Logging)
 
-- [ ] All contracts have corresponding tests
-- [ ] All entities have model tasks
-- [ ] All tests come before implementation
-- [ ] Parallel tasks truly independent
-- [ ] Each task specifies exact file path
-- [ ] No task modifies same file as another [P] task
+## المرحلة 3.4: التكامل
+- [ ] T015 ربط UserService بقاعدة البيانات
+- [ ] T016 وسيط المصادقة (Auth Middleware)
+- [ ] T017 تسجيل الطلب/الاستجابة
+- [ ] T018 تفعيل CORS وترويسات الأمان
+
+## المرحلة 3.5: التلميع (Polish)
+- [ ] T019 [P] اختبارات وحدات للتحقق في tests/unit/test_validation.py
+- [ ] T020 اختبارات الأداء (<200ms)
+- [ ] T021 [P] تحديث التوثيق في docs/api.md
+- [ ] T022 إزالة التكرار
+- [ ] T023 تنفيذ manual-testing.md
+
+## التبعيات
+- الاختبارات (T004–T007) قبل التنفيذ (T008–T014)
+- T008 تحجب T009 و T015
+- T016 تحجب T018
+- التنفيذ قبل التلميع (T019–T023)
+
+## مثال تنفيذ متوازٍ
+```
+# إطلاق T004-T007 معاً:
+Task: "اختبار عقد POST /api/users في tests/contract/test_users_post.py"
+Task: "اختبار عقد GET /api/users/{id} في tests/contract/test_users_get.py"
+Task: "اختبار تكامل التسجيل في tests/integration/test_registration.py"
+Task: "اختبار تكامل المصادقة في tests/integration/test_auth.py"
+```
+
+## ملاحظات
+- المهام ذات [P] = ملفات مستقلة بلا تعارض
+- تأكد أن الاختبارات تفشل قبل التنفيذ
+- نفّذ التزام (commit) بعد كل مهمة
+- تجنّب: مهام غامضة، تضارب نفس الملف في مهام متوازية
+
+## قواعد توليد المهام
+*تُطبق أثناء التنفيذ*
+
+1. **من العقود**:
+   - كل ملف عقد → مهمة اختبار عقد [P]
+   - كل Endpoint → مهمة تنفيذ
+2. **من نموذج البيانات**:
+   - كل كيان → مهمة نموذج [P]
+   - العلاقات → مهام طبقة الخدمة
+3. **من قصص المستخدم**:
+   - كل قصة → اختبار تكامل [P]
+   - quickstart → مهام تحقق
+4. **الترتيب**:
+   - إعداد → اختبارات → نماذج → خدمات → Endpoints → تلميع
+   - التبعيات تمنع الوسم [P]
+
+## قائمة التحقق (Validation)
+*بوابة: تُفحص قبل الإرجاع*
+- [ ] لكل عقد اختبار
+- [ ] لكل كيان مهمة نموذج
+- [ ] جميع الاختبارات تسبق التنفيذ
+- [ ] المهام المتوازية مستقلة فعلاً
+- [ ] كل مهمة تحدد مسار ملف دقيق
+- [ ] لا توجد مهمة [P] تعدل نفس الملف مع أخرى

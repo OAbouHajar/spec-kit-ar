@@ -1,116 +1,115 @@
-# Feature Specification: [FEATURE NAME]
+# مواصفة الميزة: [FEATURE NAME]
 
-**Feature Branch**: `[###-feature-name]`  
-**Created**: [DATE]  
-**Status**: Draft  
-**Input**: User description: "$ARGUMENTS"
+**فرع الميزة**: `[###-feature-name]`  
+**تاريخ الإنشاء**: [DATE]  
+**الحالة**: مسودة  
+**المدخل**: وصف المستخدم: "$ARGUMENTS"
 
-## Execution Flow (main)
+## تدفق التنفيذ (main)
 ```
-1. Parse user description from Input
-   → If empty: ERROR "No feature description provided"
-2. Extract key concepts from description
-   → Identify: actors, actions, data, constraints
-3. For each unclear aspect:
-   → Mark with [NEEDS CLARIFICATION: specific question]
-4. Fill User Scenarios & Testing section
-   → If no clear user flow: ERROR "Cannot determine user scenarios"
-5. Generate Functional Requirements
-   → Each requirement must be testable
-   → Mark ambiguous requirements
-6. Identify Key Entities (if data involved)
-7. Run Review Checklist
-   → If any [NEEDS CLARIFICATION]: WARN "Spec has uncertainties"
-   → If implementation details found: ERROR "Remove tech details"
-8. Return: SUCCESS (spec ready for planning)
+1. تحليل وصف المستخدم من المدخل
+   → إن كان فارغاً: خطأ "لم يتم تقديم وصف للميزة"
+2. استخراج المفاهيم الرئيسية من الوصف
+   → تحديد: الجهات (Actors) ، الأفعال، البيانات، القيود
+3. لكل جانب غير واضح:
+   → ضع وسم [NEEDS CLARIFICATION: سؤال محدد]
+4. تعبئة قسم "سيناريوهات المستخدم والاختبار"
+   → إن لم يوجد تدفق استخدام واضح: خطأ "تعذر تحديد سيناريوهات المستخدم"
+5. توليد المتطلبات الوظيفية
+   → كل متطلب يجب أن يكون قابلاً للاختبار
+   → وسم المتطلبات الغامضة
+6. تحديد الكيانات الأساسية (إن كانت هناك بيانات)
+7. تشغيل قائمة المراجعة
+   → إذا وُجد أي [NEEDS CLARIFICATION]: تحذير "المواصفة تحتوي جوانب غير مؤكدة"
+   → إذا وُجدت تفاصيل تنفيذية: خطأ "أزل تفاصيل التنفيذ"
+8. إرجاع: SUCCESS (المواصفة جاهزة للتخطيط)
 ```
 
 ---
 
-## ⚡ Quick Guidelines
-- ✅ Focus on WHAT users need and WHY
-- ❌ Avoid HOW to implement (no tech stack, APIs, code structure)
-- 👥 Written for business stakeholders, not developers
+## ⚡ إرشادات سريعة
+- ✅ ركّز على ماذا يحتاج المستخدم ولماذا
+- ❌ تجنّب كيف سيتم التنفيذ (لا تكنولوجيا، لا أطر عمل، لا هياكل كود)
+- 👥 موجهة لأصحاب المصلحة غير التقنيين
 
-### Section Requirements
-- **Mandatory sections**: Must be completed for every feature
-- **Optional sections**: Include only when relevant to the feature
-- When a section doesn't apply, remove it entirely (don't leave as "N/A")
+### متطلبات الأقسام
+- **أقسام إلزامية**: يجب إكمالها لكل ميزة
+- **أقسام اختيارية**: أدرجها فقط عند الحاجة
+- عند عدم انطباق قسم ما احذفه تماماً (لا تضع "N/A")
 
-### For AI Generation
-When creating this spec from a user prompt:
-1. **Mark all ambiguities**: Use [NEEDS CLARIFICATION: specific question] for any assumption you'd need to make
-2. **Don't guess**: If the prompt doesn't specify something (e.g., "login system" without auth method), mark it
-3. **Think like a tester**: Every vague requirement should fail the "testable and unambiguous" checklist item
-4. **Common underspecified areas**:
-   - User types and permissions
-   - Data retention/deletion policies  
-   - Performance targets and scale
-   - Error handling behaviors
-   - Integration requirements
-   - Security/compliance needs
-
----
-
-## User Scenarios & Testing *(mandatory)*
-
-### Primary User Story
-[Describe the main user journey in plain language]
-
-### Acceptance Scenarios
-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
-2. **Given** [initial state], **When** [action], **Then** [expected outcome]
-
-### Edge Cases
-- What happens when [boundary condition]?
-- How does system handle [error scenario]?
-
-## Requirements *(mandatory)*
-
-### Functional Requirements
-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
-
-*Example of marking unclear requirements:*
-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
-
-### Key Entities *(include if feature involves data)*
-- **[Entity 1]**: [What it represents, key attributes without implementation]
-- **[Entity 2]**: [What it represents, relationships to other entities]
+### عند التوليد بالذكاء الاصطناعي
+1. **وَسْم جميع الغموض**: استخدم [NEEDS CLARIFICATION: سؤال محدد]
+2. **لا تفترض**: إن لم يُذكر شيء (مثل طريقة المصادقة) ضع وسم التوضيح
+3. **فكّر كالمختبر**: كل متطلب غير واضح يجب أن يفشل عنصر "قابل للاختبار وغير ملتبس"
+4. **مناطق شائعة النقص**:
+   - أنواع المستخدمين والصلاحيات
+   - سياسات الاحتفاظ / الحذف
+   - أهداف الأداء والحجم
+   - سلوكيات معالجة الأخطاء
+   - متطلبات التكامل
+   - احتياجات الأمن والامتثال
 
 ---
 
-## Review & Acceptance Checklist
-*GATE: Automated checks run during main() execution*
+## سيناريوهات المستخدم والاختبار *(إلزامي)*
 
-### Content Quality
-- [ ] No implementation details (languages, frameworks, APIs)
-- [ ] Focused on user value and business needs
-- [ ] Written for non-technical stakeholders
-- [ ] All mandatory sections completed
+### القصة الرئيسية
+[وصف الرحلة الرئيسية للمستخدم بلغة بسيطة]
 
-### Requirement Completeness
-- [ ] No [NEEDS CLARIFICATION] markers remain
-- [ ] Requirements are testable and unambiguous  
-- [ ] Success criteria are measurable
-- [ ] Scope is clearly bounded
-- [ ] Dependencies and assumptions identified
+### سيناريوهات القبول
+1. **Given** [حالة ابتدائية], **When** [إجراء], **Then** [نتيجة متوقعة]
+2. **Given** [حالة ابتدائية], **When** [إجراء], **Then** [نتيجة متوقعة]
+
+### الحالات الحدّية
+- ماذا يحدث عند [شرط حدّي]؟
+- كيف يتعامل النظام مع [سيناريو خطأ]؟
+
+## المتطلبات *(إلزامي)*
+
+### المتطلبات الوظيفية
+- **FR-001**: يجب أن يمكّن النظام المستخدمين من [قدرة محددة]
+- **FR-002**: يجب أن يقوم النظام بـ [قدرة محددة]
+- **FR-003**: يجب أن يتمكن المستخدمون من [تفاعل أساسي]
+- **FR-004**: يجب أن يقوم النظام بـ [متطلب بيانات]
+- **FR-005**: يجب أن يقوم النظام بـ [سلوك/تتبع]
+
+*مثال على وسم متطلب غير واضح:*
+- **FR-006**: يجب أن يصادق النظام المستخدمين عبر [NEEDS CLARIFICATION: طريقة المصادقة غير محددة - بريد/كلمة مرور؟ SSO؟ OAuth؟]
+- **FR-007**: يجب أن يحتفظ النظام ببيانات المستخدم لمدة [NEEDS CLARIFICATION: مدة الاحتفاظ غير محددة]
+
+### الكيانات الأساسية *(أدرجها إن وُجدت بيانات)*
+- **[Entity 1]**: [ما تمثله، خصائص رئيسية بدون تنفيذ]
+- **[Entity 2]**: [ما تمثله، وعلاقاتها]
 
 ---
 
-## Execution Status
-*Updated by main() during processing*
+## قائمة المراجعة والقبول
+*بوابة: يتم تنفيذ فحوصات مؤتمتة أثناء main()*
 
-- [ ] User description parsed
-- [ ] Key concepts extracted
-- [ ] Ambiguities marked
-- [ ] User scenarios defined
-- [ ] Requirements generated
-- [ ] Entities identified
-- [ ] Review checklist passed
+### جودة المحتوى
+- [ ] لا توجد تفاصيل تنفيذ (لغات، أطر، واجهات)
+- [ ] التركيز على قيمة المستخدم والأعمال
+- [ ] مكتوبة لجمهور غير تقني
+- [ ] كل الأقسام الإلزامية مكتملة
+
+### اكتمال المتطلبات
+- [ ] لا توجد علامات [NEEDS CLARIFICATION] متبقية
+- [ ] المتطلبات قابلة للاختبار وغير ملتبسة
+- [ ] معايير النجاح قابلة للقياس
+- [ ] نطاق الميزة محدد بوضوح
+- [ ] التبعيات والافتراضات محددة
+
+---
+
+## حالة التنفيذ
+*يتم تحديثها أثناء التشغيل*
+
+- [ ] تم تحليل وصف المستخدم
+- [ ] تم استخراج المفاهيم الرئيسية
+- [ ] تم وسم الغموض
+- [ ] تم تعريف سيناريوهات المستخدم
+- [ ] تم توليد المتطلبات
+- [ ] تم تحديد الكيانات
+- [ ] تم اجتياز قائمة المراجعة
 
 ---

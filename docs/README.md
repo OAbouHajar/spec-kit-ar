@@ -1,33 +1,44 @@
-# Documentation
+# التوثيق (Documentation)
 
-This folder contains the documentation source files for Spec Kit, built using [DocFX](https://dotnet.github.io/docfx/).
+هذا المجلد يحتوي ملفات مصدر التوثيق الخاصة بحزمة المواصفات، ويُبنى باستخدام أداة [DocFX](https://dotnet.github.io/docfx/).
 
-## Building Locally
+## البناء محلياً (Build Locally)
 
-To build the documentation locally:
+لبناء التوثيق محلياً:
 
-1. Install DocFX:
+1. تثبيت DocFX:
    ```bash
    dotnet tool install -g docfx
    ```
 
-2. Build the documentation:
+2. تنفيذ عملية البناء:
    ```bash
    cd docs
    docfx docfx.json --serve
    ```
 
-3. Open your browser to `http://localhost:8080` to view the documentation.
+3. افتح المتصفح على:  
+   `http://localhost:8080`
 
-## Structure
+## البنية (Structure)
 
-- `docfx.json` - DocFX configuration file
-- `index.md` - Main documentation homepage
-- `toc.yml` - Table of contents configuration
-- `installation.md` - Installation guide
-- `quickstart.md` - Quick start guide
-- `_site/` - Generated documentation output (ignored by git)
+| المسار / الملف | الوصف |
+|----------------|-------|
+| `docfx.json` | ملف إعدادات DocFX |
+| `index.md` | صفحة البداية الرئيسية للتوثيق |
+| `toc.yml` | إعداد جدول المحتويات |
+| `installation.md` | دليل التثبيت |
+| `quickstart.md` | دليل البدء السريع |
+| `_site/` | المخرجات المولدة (مُتجاهلة في Git) |
 
-## Deployment
+## النشر (Deployment)
 
-Documentation is automatically built and deployed to GitHub Pages when changes are pushed to the `main` branch. The workflow is defined in `.github/workflows/docs.yml`.
+يتم بناء التوثيق ونشره تلقائياً إلى GitHub Pages عند دفع (push) تغييرات إلى فرع `main`.  
+سير العمل (Workflow) موجود في:  
+`.github/workflows/docs.yml`
+
+## ملاحظات
+
+- تأكد من تحديث أي روابط داخلية عند إعادة تسمية الملفات (خاصة بعد التعريب).
+- مجلد `_site/` لا يجب تتبعه في نظام التحكم بالإصدارات (Git) لأنه ناتج بناء.
+- يمكن تعديل إعدادات المخرجات أو السمات (Themes) عبر تعديل `docfx.json`.

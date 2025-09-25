@@ -1,23 +1,24 @@
-# [PROJECT NAME] Development Guidelines
+# إرشادات تطوير [PROJECT NAME]
 
-Auto-generated from all feature plans. Last updated: [DATE]
+يُنشأ تلقائياً من جميع خطط الميزات. آخر تحديث: [DATE]
 
-## Active Technologies
-[EXTRACTED FROM ALL PLAN.MD FILES]
+## التقنيات النشطة
+[يتم الاستخراج من جميع ملفات plan.md]
 
-## Project Structure
+## بنية المشروع
 ```
-[ACTUAL STRUCTURE FROM PLANS]
+[البنية الفعلية المستخرجة من الخطط]
 ```
 
-## Commands
-[ONLY COMMANDS FOR ACTIVE TECHNOLOGIES]
+## الأوامر
+[الأوامر الخاصة بالتقنيات النشطة فقط]
 
-## Code Style
-[LANGUAGE-SPECIFIC, ONLY FOR LANGUAGES IN USE]
+## أسلوب الشيفرة
+[إرشادات خاصة باللغات المستخدمة فقط]
 
-## Recent Changes
-[LAST 3 FEATURES AND WHAT THEY ADDED]
+## أحدث التغييرات
+[آخر 3 ميزات وماذا أضافت]
 
 <!-- MANUAL ADDITIONS START -->
+<!-- أضف ملاحظات أو معايير خاصة بالمشروع هنا. سيتم الاحتفاظ بهذا القسم أثناء التحديثات التلقائية. -->
 <!-- MANUAL ADDITIONS END -->

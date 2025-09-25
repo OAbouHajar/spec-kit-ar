@@ -1,76 +1,76 @@
 ---
-description: "Implementation plan template for feature development"
+description: "قالب خطة التنفيذ لتطوير الميزة"
 scripts:
   sh: scripts/bash/update-agent-context.sh __AGENT__
   ps: scripts/powershell/update-agent-context.ps1 -AgentType __AGENT__
 ---
 
-# Implementation Plan: [FEATURE]
+# خطة التنفيذ: [FEATURE]
 
-**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
-**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
+**الفرع**: `[###-feature-name]` | **التاريخ**: [DATE] | **المواصفة**: [link]  
+**المدخل**: مواصفة الميزة من المسار `/specs/[###-feature-name]/spec.md`
 
-## Execution Flow (/plan command scope)
+## تدفق التنفيذ (نطاق أمر /plan)
 ```
-1. Load feature spec from Input path
-   → If not found: ERROR "No feature spec at {path}"
-2. Fill Technical Context (scan for NEEDS CLARIFICATION)
-   → Detect Project Type from context (web=frontend+backend, mobile=app+api)
-   → Set Structure Decision based on project type
-3. Fill the Constitution Check section based on the content of the constitution document.
-4. Evaluate Constitution Check section below
-   → If violations exist: Document in Complexity Tracking
-   → If no justification possible: ERROR "Simplify approach first"
-   → Update Progress Tracking: Initial Constitution Check
-5. Execute Phase 0 → research.md
-   → If NEEDS CLARIFICATION remain: ERROR "Resolve unknowns"
-6. Execute Phase 1 → contracts, data-model.md, quickstart.md, agent-specific template file (e.g., `CLAUDE.md` for Claude Code, `.github/copilot-instructions.md` for GitHub Copilot, `GEMINI.md` for Gemini CLI, `QWEN.md` for Qwen Code or `AGENTS.md` for opencode).
-7. Re-evaluate Constitution Check section
-   → If new violations: Refactor design, return to Phase 1
-   → Update Progress Tracking: Post-Design Constitution Check
-8. Plan Phase 2 → Describe task generation approach (DO NOT create tasks.md)
-9. STOP - Ready for /tasks command
+1. تحميل مواصفة الميزة من مسار المدخل
+   → إن لم تُوجد: خطأ "لا توجد مواصفة في {path}"
+2. تعبئة "السياق التقني" (مسح NEEDS CLARIFICATION)
+   → استنتاج نوع المشروع من السياق (ويب = frontend + backend، جوّال = app + api)
+   → ضبط قرار الهيكلة بناءً على النوع
+3. تعبئة قسم "فحص الدستور" بناءً على ملف الدستور
+4. تقييم قسم فحص الدستور
+   → إن وُجدت مخالفات: تدوينها في "تتبع التعقيد"
+   → إن تعذّر التبرير: خطأ "بسّط النهج أولاً"
+   → تحديث "تتبع التقدّم": الفحص الأولي
+5. تنفيذ المرحلة 0 → ملف research.md
+   → إن بقيت NEEDS CLARIFICATION: خطأ "حل الغموض أولاً"
+6. تنفيذ المرحلة 1 → العقود، data-model.md، quickstart.md، ملف الوكيل (agent) الخاص (مثل: `CLAUDE.md` أو `.github/copilot-instructions.md` أو `GEMINI.md` أو `QWEN.md` أو `AGENTS.md`)
+7. إعادة فحص قسم الدستور
+   → إن ظهرت مخالفات جديدة: إعادة التصميم، والرجوع للمرحلة 1
+   → تحديث "تتبع التقدّم": فحص ما بعد التصميم
+8. تخطيط المرحلة 2 → وصف نهج توليد المهام (لا تُنشئ tasks.md)
+9. توقف - جاهز لأمر /tasks
 ```
 
-**IMPORTANT**: The /plan command STOPS at step 7. Phases 2-4 are executed by other commands:
-- Phase 2: /tasks command creates tasks.md
-- Phase 3-4: Implementation execution (manual or via tools)
+**مهم**: أمر /plan يتوقف عند الخطوة 7. المراحل 2-4 تنفَّذ بأوامر أخرى:
+- المرحلة 2: أمر /tasks ينشئ tasks.md
+- المرحلة 3-4: تنفيذ (يدوي أو عبر الأدوات)
 
-## Summary
-[Extract from feature spec: primary requirement + technical approach from research]
+## الملخص
+[مقتطف من المواصفة: المتطلب الرئيسي + النهج التقني من البحث]
 
-## Technical Context
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [single/web/mobile - determines source structure]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+## السياق التقني
+**اللغة/الإصدار**: [مثال: Python 3.11 أو NEEDS CLARIFICATION]  
+**الاعتمادات الأساسية**: [مثل FastAPI أو NEEDS CLARIFICATION]  
+**التخزين**: [مثل PostgreSQL أو N/A]  
+**الاختبار**: [pytest أو NEEDS CLARIFICATION]  
+**المنصة الهدف**: [Linux / iOS / WASM أو NEEDS CLARIFICATION]  
+**نوع المشروع**: [single / web / mobile]  
+**أهداف الأداء**: [مثل 1000 req/s أو NEEDS CLARIFICATION]  
+**القيود**: [مثل <200ms p95 أو NEEDS CLARIFICATION]  
+**الحجم/النطاق**: [مثل 10k users أو NEEDS CLARIFICATION]
 
-## Constitution Check
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+## فحص الدستور
+*بوابة: يجب اجتيازها قبل بحث المرحلة 0. يُعاد الفحص بعد تصميم المرحلة 1.*
 
-[Gates determined based on constitution file]
+[تُولّد البوابات اعتماداً على ملف الدستور]
 
-## Project Structure
+## هيكل المشروع
 
-### Documentation (this feature)
+### التوثيق (هذه الميزة)
 ```
 specs/[###-feature]/
-├── plan.md              # This file (/plan command output)
-├── research.md          # Phase 0 output (/plan command)
-├── data-model.md        # Phase 1 output (/plan command)
-├── quickstart.md        # Phase 1 output (/plan command)
-├── contracts/           # Phase 1 output (/plan command)
-└── tasks.md             # Phase 2 output (/tasks command - NOT created by /plan)
+├── plan.md              # هذا الملف (مخرج /plan)
+├── research.md          # مخرج المرحلة 0 (/plan)
+├── data-model.md        # مخرج المرحلة 1 (/plan)
+├── quickstart.md        # مخرج المرحلة 1 (/plan)
+├── contracts/           # مخرج المرحلة 1 (/plan)
+└── tasks.md             # مخرج المرحلة 2 (/tasks - لا ينشئه /plan)
 ```
 
-### Source Code (repository root)
+### الشيفرة (جذر المستودع)
 ```
-# Option 1: Single project (DEFAULT)
+# خيار 1: مشروع منفرد (افتراضي)
 src/
 ├── models/
 ├── services/
@@ -82,7 +82,7 @@ tests/
 ├── integration/
 └── unit/
 
-# Option 2: Web application (when "frontend" + "backend" detected)
+# خيار 2: تطبيق ويب (عند اكتشاف frontend + backend)
 backend/
 ├── src/
 │   ├── models/
@@ -97,122 +97,109 @@ frontend/
 │   └── services/
 └── tests/
 
-# Option 3: Mobile + API (when "iOS/Android" detected)
+# خيار 3: جوّال + API (عند اكتشاف iOS/Android)
 api/
-└── [same as backend above]
+└── (مثل backend أعلاه)
 
-ios/ or android/
-└── [platform-specific structure]
+ios/ أو android/
+└── (بنية خاصة بالمنصة)
 ```
 
-**Structure Decision**: [DEFAULT to Option 1 unless Technical Context indicates web/mobile app]
+**قرار البنية**: [الافتراضي خيار 1 ما لم يدل السياق التقني خلاف ذلك]
 
-## Phase 0: Outline & Research
-1. **Extract unknowns from Technical Context** above:
-   - For each NEEDS CLARIFICATION → research task
-   - For each dependency → best practices task
-   - For each integration → patterns task
-
-2. **Generate and dispatch research agents**:
+## المرحلة 0: الخطوط العريضة والبحث
+1. استخراج المجهولات من "السياق التقني":
+   - كل NEEDS CLARIFICATION → مهمة بحث
+   - كل اعتماد → مهمة "أفضل ممارسات"
+   - كل تكامل → مهمة "أنماط"
+2. توليد مهام البحث:
    ```
-   For each unknown in Technical Context:
-     Task: "Research {unknown} for {feature context}"
-   For each technology choice:
-     Task: "Find best practices for {tech} in {domain}"
+   لكل مجهول:
+     Task: "بحث {المجهول} في سياق {الميزة}"
+   لكل تقنية:
+     Task: "أفضل ممارسات {التقنية} في {المجال}"
    ```
+3. تجميع النتائج في `research.md` بالتنسيق:
+   - القرار
+   - المبرر
+   - البدائل
 
-3. **Consolidate findings** in `research.md` using format:
-   - Decision: [what was chosen]
-   - Rationale: [why chosen]
-   - Alternatives considered: [what else evaluated]
+**المخرج**: ملف research.md بحل جميع NEEDS CLARIFICATION
 
-**Output**: research.md with all NEEDS CLARIFICATION resolved
+## المرحلة 1: التصميم والعقود
+*شرط مسبق: اكتمال research.md*
 
-## Phase 1: Design & Contracts
-*Prerequisites: research.md complete*
+1. استخراج الكيانات → `data-model.md`:
+   - الاسم، الحقول، العلاقات
+   - قواعد التحقق
+2. توليد عقود API من المتطلبات:
+   - كل فعل مستخدم → مسار endpoint
+   - استخدام REST/GraphQL قياسي
+   - إخراج مخطط OpenAPI/GraphQL إلى `/contracts/`
+3. توليد اختبارات العقود:
+   - ملف اختبار لكل endpoint
+   - تأكيد مخططات الطلب/الرد
+   - يجب أن تفشل (لا تنفيذ بعد)
+4. استخراج سيناريوهات الاختبار من القصص:
+   - كل قصة → اختبار تكامل
+   - quickstart = خطوات تحقق القصة
+5. تحديث ملف الوكيل تدريجياً:
+   - تشغيل `{SCRIPT}`
+   - إضافة التقنية الجديدة فقط
+   - الحفاظ على الإضافات اليدوية
+   - آخر 3 تغييرات
+   - أقل من 150 سطر
 
-1. **Extract entities from feature spec** → `data-model.md`:
-   - Entity name, fields, relationships
-   - Validation rules from requirements
-   - State transitions if applicable
+**المخرج**: data-model.md، محتوى /contracts، اختبارات فاشلة، quickstart.md، ملف الوكيل
 
-2. **Generate API contracts** from functional requirements:
-   - For each user action → endpoint
-   - Use standard REST/GraphQL patterns
-   - Output OpenAPI/GraphQL schema to `/contracts/`
+## المرحلة 2: نهج تخطيط المهام
+*وصف لما سيفعله أمر /tasks - لا يُنفّذ في /plan*
 
-3. **Generate contract tests** from contracts:
-   - One test file per endpoint
-   - Assert request/response schemas
-   - Tests must fail (no implementation yet)
+**استراتيجية التوليد**:
+- تحميل `.specify/templates/tasks-template.md`
+- من التصميم (العقود + نموذج البيانات + quickstart)
+- كل عقد → مهمة اختبار عقد [P]
+- كل كيان → مهمة نموذج [P]
+- كل قصة → اختبار تكامل
+- مهام تنفيذ لجعل الاختبارات تمر
 
-4. **Extract test scenarios** from user stories:
-   - Each story → integration test scenario
-   - Quickstart test = story validation steps
+**الترتيب**:
+- TDD: الاختبارات أولاً
+- تبعية: النماذج → الخدمات → الواجهات
+- [P] للمهام المستقلة
 
-5. **Update agent file incrementally** (O(1) operation):
-   - Run `{SCRIPT}`
-     **IMPORTANT**: Execute it exactly as specified above. Do not add or remove any arguments.
-   - If exists: Add only NEW tech from current plan
-   - Preserve manual additions between markers
-   - Update recent changes (keep last 3)
-   - Keep under 150 lines for token efficiency
-   - Output to repository root
+**المخرج المتوقع**: 25-30 مهمة مرقمة في tasks.md
 
-**Output**: data-model.md, /contracts/*, failing tests, quickstart.md, agent-specific file
+**مهم**: هذه المرحلة لأمر /tasks فقط
 
-## Phase 2: Task Planning Approach
-*This section describes what the /tasks command will do - DO NOT execute during /plan*
+## المرحلة 3+: ما بعد /plan
+- المرحلة 3: توليد المهام (/tasks)
+- المرحلة 4: التنفيذ
+- المرحلة 5: التحقق (تشغيل الاختبارات، تنفيذ quickstart، قياس الأداء)
 
-**Task Generation Strategy**:
-- Load `.specify/templates/tasks-template.md` as base
-- Generate tasks from Phase 1 design docs (contracts, data model, quickstart)
-- Each contract → contract test task [P]
-- Each entity → model creation task [P] 
-- Each user story → integration test task
-- Implementation tasks to make tests pass
+## تتبع التعقيد
+*املأ فقط عند وجود مخالفات دستورية مبررة*
 
-**Ordering Strategy**:
-- TDD order: Tests before implementation 
-- Dependency order: Models before services before UI
-- Mark [P] for parallel execution (independent files)
+| المخالفة | لماذا مطلوبة | البديل الأبسط ولماذا رُفض |
+|----------|--------------|---------------------------|
+| مثال | الحاجة الحالية | سبب عدم كفاية الأبسط |
 
-**Estimated Output**: 25-30 numbered, ordered tasks in tasks.md
+## تتبع التقدّم
+*تُحدّث أثناء التدفق*
 
-**IMPORTANT**: This phase is executed by the /tasks command, NOT by /plan
+**حالة المراحل**:
+- [ ] المرحلة 0: بحث مكتمل (/plan)
+- [ ] المرحلة 1: تصميم مكتمل (/plan)
+- [ ] المرحلة 2: تخطيط مهام مكتمل (/plan - وصف فقط)
+- [ ] المرحلة 3: المهام مولدة (/tasks)
+- [ ] المرحلة 4: تنفيذ مكتمل
+- [ ] المرحلة 5: تحقق ناجح
 
-## Phase 3+: Future Implementation
-*These phases are beyond the scope of the /plan command*
-
-**Phase 3**: Task execution (/tasks command creates tasks.md)  
-**Phase 4**: Implementation (execute tasks.md following constitutional principles)  
-**Phase 5**: Validation (run tests, execute quickstart.md, performance validation)
-
-## Complexity Tracking
-*Fill ONLY if Constitution Check has violations that must be justified*
-
-| Violation | Why Needed | Simpler Alternative Rejected Because |
-|-----------|------------|-------------------------------------|
-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
-
-
-## Progress Tracking
-*This checklist is updated during execution flow*
-
-**Phase Status**:
-- [ ] Phase 0: Research complete (/plan command)
-- [ ] Phase 1: Design complete (/plan command)
-- [ ] Phase 2: Task planning complete (/plan command - describe approach only)
-- [ ] Phase 3: Tasks generated (/tasks command)
-- [ ] Phase 4: Implementation complete
-- [ ] Phase 5: Validation passed
-
-**Gate Status**:
-- [ ] Initial Constitution Check: PASS
-- [ ] Post-Design Constitution Check: PASS
-- [ ] All NEEDS CLARIFICATION resolved
-- [ ] Complexity deviations documented
+**حالة البوابات**:
+- [ ] فحص الدستور الأول: PASS
+- [ ] فحص ما بعد التصميم: PASS
+- [ ] حل جميع NEEDS CLARIFICATION
+- [ ] توثيق الانحرافات التعقيدية
 
 ---
-*Based on Constitution v2.1.1 - See `/memory/constitution.md`*
+*استناداً إلى الدستور v2.1.1 - راجع `/memory/constitution.md`*

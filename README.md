@@ -1,568 +1,276 @@
 <div align="center">
     <img src="./media/logo_small.webp"/>
-    <h1>🌱 Spec Kit</h1>
-    <h3><em>Build high-quality software faster.</em></h3>
+    <h1>🌱 حزمة المواصفات (Spec Kit)</h1>
+    <h3><em>ابنِ برمجيات عالية الجودة بسرعة أعلى.</em></h3>
 </div>
 
 <p align="center">
-    <strong>An effort to allow organizations to focus on product scenarios rather than writing undifferentiated code with the help of Spec-Driven Development.</strong>
+    <strong>مقاربة تُمكّن الفرق من التركيز على سيناريوهات المنتج بدلاً من كتابة الشيفرة غير المتمايزة عبر منهجية التطوير المدفوع بالمواصفة (Spec-Driven Development).</strong>
 </p>
-
-[![Release](https://github.com/github/spec-kit/actions/workflows/release.yml/badge.svg)](https://github.com/github/spec-kit/actions/workflows/release.yml)
+<p align="center">
+<a href="https://github.com/OAbouHajar/spec-kit-ar/actions/workflows/release.yml"><img src="https://github.com/OAbouHajar/spec-kit-ar/actions/workflows/release.yml/badge.svg" alt="Release"/></a>
+</p>
 
 ---
 
-## Table of Contents
+## فهرس المحتويات
 
-- [🤔 What is Spec-Driven Development?](#-what-is-spec-driven-development)
-- [⚡ Get started](#-get-started)
-- [📽️ Video Overview](#️-video-overview)
-- [🤖 Supported AI Agents](#-supported-ai-agents)
-- [🔧 Specify CLI Reference](#-specify-cli-reference)
-- [📚 Core philosophy](#-core-philosophy)
-- [🌟 Development phases](#-development-phases)
-- [🎯 Experimental goals](#-experimental-goals)
-- [🔧 Prerequisites](#-prerequisites)
-- [📖 Learn more](#-learn-more)
-- [📋 Detailed process](#-detailed-process)
-- [🔍 Troubleshooting](#-troubleshooting)
-- [👥 Maintainers](#-maintainers)
-- [💬 Support](#-support)
-- [🙏 Acknowledgements](#-acknowledgements)
-- [📄 License](#-license)
+- [🤔 ما هو التطوير المدفوع بالمواصفة؟](#-ما-هو-التطوير-المدفوع-بالمواصفة)
+- [⚡ الانطلاق السريع](#-الانطلاق-السريع)
+- [📽️ عرض مرئي](#️-عرض-مرئي)
+- [🤖 الوكلاء (AI Agents) المدعومون](#-الوكلاء-ai-agents-المدعومون)
+- [🔧 مرجع أوامر Specify CLI](#-مرجع-أوامر-specify-cli)
+- [📚 الفلسفة الأساسية](#-الفلسفة-الأساسية)
+- [🌟 المراحل التطويرية](#-المراحل-التطويرية)
+- [🎯 الأهداف التجريبية](#-الأهداف-التجريبية)
+- [🔧 المتطلبات المسبقة](#-المتطلبات-المسبقة)
+- [📖 تعلّم المزيد](#-تعلّم-المزيد)
+- [📋 العملية التفصيلية](#-العملية-التفصيلية)
+- [🔍 الاستكشاف وحل المشكلات (Troubleshooting)](#-الاستكشاف-وحل-المشكلات-troubleshooting)
+- [👥 المشرفون](#-المشرفون)
+- [💬 الدعم](#-الدعم)
+- [🙏 الشكر والتقدير](#-الشكر-والتقدير)
+- [📄 الترخيص](#-الترخيص)
 
-## 🤔 What is Spec-Driven Development?
+## 🤔 ما هو التطوير المدفوع بالمواصفة؟
 
-Spec-Driven Development **flips the script** on traditional software development. For decades, code has been king — specifications were just scaffolding we built and discarded once the "real work" of coding began. Spec-Driven Development changes this: **specifications become executable**, directly generating working implementations rather than just guiding them.
+التطوير المدفوع بالمواصفة يعكس القاعدة التقليدية: تاريخياً كانت الشيفرة هي “الملك” والمواصفة مجرد سقالات مؤقتة. هنا تصبح **المواصفة كياناً قابلاً للتنفيذ** يولّد مخرجات عملية (ملفات، خطة، مهام) بدل أن تكون وثيقة نُسكنها جانباً.
 
-## ⚡ Get started
+الفكرة الجوهرية:
+1. كتابة مواصفة غنية (ماذا ولماذا).
+2. توضيح الغموض مبكراً.
+3. تخطيط معماري/تقني مضبوط.
+4. اشتقاق قائمة مهام تنفيذية قابلة للأتمتة.
+5. تنفيذ متسلسل/متوازي مضبوط مع فحوص تغطية واتساق.
+6. تحليل لاحق للتأكد من عدم الانحراف.
 
-### 1. Install Specify
+## ⚡ الانطلاق السريع
 
-Choose your preferred installation method:
+### 1. تثبيت أداة Specify
 
-#### Option 1: Persistent Installation (Recommended)
-
-Install once and use everywhere:
+#### الخيار الأول (مستحسن) — تثبيت دائم:
 
 ```bash
-uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
+uv tool install specify-cli --from git+https://github.com/OAbouHajar/spec-kit-ar.git
 ```
 
-Then use the tool directly:
+ثم استخدمها مباشرة:
 
 ```bash
 specify init <PROJECT_NAME>
 specify check
 ```
 
-#### Option 2: One-time Usage
-
-Run directly without installing:
+#### الخيار الثاني — تشغيل لمرة واحدة:
 
 ```bash
-uvx --from git+https://github.com/github/spec-kit.git specify init <PROJECT_NAME>
+uvx --from git+https://github.com/OAbouHajar/spec-kit-ar.git specify init <PROJECT_NAME>
 ```
 
-**Benefits of persistent installation:**
+**مزايا التثبيت الدائم:**
+- متاحة في PATH
+- إدارة محدثة عبر: `uv tool list / upgrade / uninstall`
+- تقليل الحاجة لأسماء مستعارة (aliases)
 
-- Tool stays installed and available in PATH
-- No need to create shell aliases
-- Better tool management with `uv tool list`, `uv tool upgrade`, `uv tool uninstall`
-- Cleaner shell configuration
+### 2. تأسيس المبادئ (الدستور)
 
-### 2. Establish project principles
+استخدم الأمر:  
+```bash
+/constitution
+```
+لصياغة مبادئ الجودة، الاختبارات، الأداء، تجربة المستخدم… تُخزَّن في `memory/constitution.md`.
 
-Use the **`/constitution`** command to create your project's governing principles and development guidelines that will guide all subsequent development.
+### 3. إنشاء المواصفة
+
+استخدم:  
+```bash
+/specify وصف نصي واضح للميزة...
+```
+ركّز على (ماذا ولماذا) واترك (كيف) لمرحلة التخطيط.
+
+### 4. إنشاء خطة التنفيذ
 
 ```bash
-/constitution Create principles focused on code quality, testing standards, user experience consistency, and performance requirements
+/plan حدد المكدس، المعمارية، القرارات التقنية...
 ```
 
-### 3. Create the spec
-
-Use the **`/specify`** command to describe what you want to build. Focus on the **what** and **why**, not the tech stack.
-
-```bash
-/specify Build an application that can help me organize my photos in separate photo albums. Albums are grouped by date and can be re-organized by dragging and dropping on the main page. Albums are never in other nested albums. Within each album, photos are previewed in a tile-like interface.
-```
-
-### 4. Create a technical implementation plan
-
-Use the **`/plan`** command to provide your tech stack and architecture choices.
-
-```bash
-/plan The application uses Vite with minimal number of libraries. Use vanilla HTML, CSS, and JavaScript as much as possible. Images are not uploaded anywhere and metadata is stored in a local SQLite database.
-```
-
-### 5. Break down into tasks
-
-Use **`/tasks`** to create an actionable task list from your implementation plan.
+### 5. توليد المهام
 
 ```bash
 /tasks
 ```
+ينتج `مهام.md` (بعد التعريب) أو سابقاً tasks.md.
 
-### 6. Execute implementation
-
-Use **`/implement`** to execute all tasks and build your feature according to the plan.
+### 6. التنفيذ
 
 ```bash
 /implement
 ```
+لتنفيذ جميع المهام مع احترام الاعتمادات والتوازي المسموح.
 
-For detailed step-by-step instructions, see our [comprehensive guide](./spec-driven.md).
+للتفاصيل الكاملة راجع: [spec-driven.md](./spec-driven.md)
 
-## 📽️ Video Overview
+## 📽️ عرض مرئي
 
-Want to see Spec Kit in action? Watch our [video overview](https://www.youtube.com/watch?v=a9eR1xsfvHg&pp=0gcJCckJAYcqIYzv)!
+شاهد العرض:  
+[رابط الفيديو](https://www.youtube.com/watch?v=a9eR1xsfvHg&pp=0gcJCckJAYcqIYzv)
 
 [![Spec Kit video header](/media/spec-kit-video-header.jpg)](https://www.youtube.com/watch?v=a9eR1xsfvHg&pp=0gcJCckJAYcqIYzv)
 
-## 🤖 Supported AI Agents
+## 🤖 الوكلاء (AI Agents) المدعومون
 
-| Agent                                                     | Support | Notes                                             |
-|-----------------------------------------------------------|---------|---------------------------------------------------|
-| [Claude Code](https://www.anthropic.com/claude-code)      | ✅ |                                                   |
-| [GitHub Copilot](https://code.visualstudio.com/)          | ✅ |                                                   |
-| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | ✅ |                                                   |
-| [Cursor](https://cursor.sh/)                              | ✅ |                                                   |
-| [Qwen Code](https://github.com/QwenLM/qwen-code)          | ✅ |                                                   |
-| [opencode](https://opencode.ai/)                          | ✅ |                                                   |
-| [Windsurf](https://windsurf.com/)                         | ✅ |                                                   |
-| [Kilo Code](https://github.com/Kilo-Org/kilocode)         | ✅ |                                                   |
-| [Auggie CLI](https://docs.augmentcode.com/cli/overview)   | ✅ |                                                   |
-| [Roo Code](https://roocode.com/)                          | ✅ |                                                   |
-| [Codex CLI](https://github.com/openai/codex)              | ⚠️ | Codex [does not support](https://github.com/openai/codex/issues/2890) custom arguments for slash commands.  |
+| الوكيل | مدعوم | ملاحظات |
+|--------|-------|----------|
+| Claude Code | ✅ | |
+| GitHub Copilot | ✅ | |
+| Gemini CLI | ✅ | |
+| Cursor | ✅ | |
+| Qwen Code | ✅ | |
+| opencode | ✅ | |
+| Windsurf | ✅ | |
+| Kilo Code | ✅ | |
+| Auggie CLI | ✅ | |
+| Roo Code | ✅ | |
+| Codex CLI | ⚠️ | لا يدعم وسائط مخصصة لبعض أوامر السلاش |
 
-## 🔧 Specify CLI Reference
+## 🔧 مرجع أوامر Specify CLI
 
-The `specify` command supports the following options:
+### الأوامر الرئيسية
 
-### Commands
+| الأمر | الوصف |
+|-------|-------|
+| `init` | تهيئة مشروع جديد |
+| `check` | فحص توافر الأدوات الداعمة |
 
-| Command     | Description                                                    |
-|-------------|----------------------------------------------------------------|
-| `init`      | Initialize a new Specify project from the latest template      |
-| `check`     | Check for installed tools (`git`, `claude`, `gemini`, `code`/`code-insiders`, `cursor-agent`, `windsurf`, `qwen`, `opencode`, `codex`) |
+### وسائط `specify init`
 
-### `specify init` Arguments & Options
+| الوسيط/الخيار | النوع | الوصف |
+|--------------|------|-------|
+| `<project-name>` | وسيط | اسم مجلد المشروع (اختياري مع `--here`) |
+| `--ai` | خيار | اختيار الوكيل: claude, gemini, copilot, cursor, qwen, opencode, codex, windsurf, kilocode, auggie, roo |
+| `--script` | خيار | نوع السكربت: sh أو ps |
+| `--ignore-agent-tools` | علم | تخطي فحص أدوات الوكلاء |
+| `--no-git` | علم | تخطي تهيئة Git |
+| `--here` | علم | التثبيت في المجلد الحالي |
+| `--force` | علم | الدمج القسري مع ملفات حالية |
+| `--skip-tls` | علم | تخطي التحقق الأمني (غير مستحسن) |
+| `--debug` | علم | إخراج تصحيح تفصيلي |
+| `--github-token` | خيار | تمرير توكن GitHub |
 
-| Argument/Option        | Type     | Description                                                                  |
-|------------------------|----------|------------------------------------------------------------------------------|
-| `<project-name>`       | Argument | Name for your new project directory (optional if using `--here`)            |
-| `--ai`                 | Option   | AI assistant to use: `claude`, `gemini`, `copilot`, `cursor`, `qwen`, `opencode`, `codex`, `windsurf`, `kilocode`, `auggie`, or `roo` |
-| `--script`             | Option   | Script variant to use: `sh` (bash/zsh) or `ps` (PowerShell)                 |
-| `--ignore-agent-tools` | Flag     | Skip checks for AI agent tools like Claude Code                             |
-| `--no-git`             | Flag     | Skip git repository initialization                                          |
-| `--here`               | Flag     | Initialize project in the current directory instead of creating a new one   |
-| `--force`              | Flag     | Force merge/overwrite when using `--here` in a non-empty directory (skip confirmation) |
-| `--skip-tls`           | Flag     | Skip SSL/TLS verification (not recommended)                                 |
-| `--debug`              | Flag     | Enable detailed debug output for troubleshooting                            |
-| `--github-token`       | Option   | GitHub token for API requests (or set GH_TOKEN/GITHUB_TOKEN env variable)  |
-
-### Examples
+### أمثلة
 
 ```bash
-# Basic project initialization
-specify init my-project
-
-# Initialize with specific AI assistant
-specify init my-project --ai claude
-
-# Initialize with Cursor support
-specify init my-project --ai cursor
-
-# Initialize with Windsurf support
-specify init my-project --ai windsurf
-
-# Initialize with PowerShell scripts (Windows/cross-platform)
-specify init my-project --ai copilot --script ps
-
-# Initialize in current directory
+specify init مشروعي
+specify init مشروعي --ai claude
 specify init --here --ai copilot
-
-# Force merge into current (non-empty) directory without confirmation
 specify init --here --force --ai copilot
-
-# Skip git initialization
-specify init my-project --ai gemini --no-git
-
-# Enable debug output for troubleshooting
-specify init my-project --ai claude --debug
-
-# Use GitHub token for API requests (helpful for corporate environments)
-specify init my-project --ai claude --github-token ghp_your_token_here
-
-# Check system requirements
+specify init مشروعي --ai gemini --no-git
+specify init مشروعي --ai claude --debug
+specify init مشروعي --ai claude --github-token ghp_xxx
 specify check
 ```
 
-### Available Slash Commands
+### أوامر السلاش (بعد التهيئة)
 
-After running `specify init`, your AI coding agent will have access to these slash commands for structured development:
+| الأمر | الوصف |
+|-------|-------|
+| `/constitution` | إنشاء/تحديث المبادئ الحاكمة |
+| `/specify` | تحديد ما سيتم بناؤه (المتطلبات وقصص المستخدم) |
+| `/clarify` | توضيح الغموض قبل التخطيط |
+| `/plan` | بناء خطة تنفيذ تقنية |
+| `/tasks` | توليد قائمة مهام قابلة للتنفيذ |
+| `/analyze` | تحليل التغطية والاتساق بعد توليد المهام |
+| `/implement` | تنفيذ المهام لبناء الميزة |
 
-| Command         | Description                                                           |
-|-----------------|-----------------------------------------------------------------------|
-| `/constitution` | Create or update project governing principles and development guidelines |
-| `/specify`      | Define what you want to build (requirements and user stories)        |
-| `/clarify`      | Clarify underspecified areas (must be run before `/plan` unless explicitly skipped; formerly `/quizme`) |
-| `/plan`         | Create technical implementation plans with your chosen tech stack     |
-| `/tasks`        | Generate actionable task lists for implementation                     |
-| `/analyze`      | Cross-artifact consistency & coverage analysis (run after /tasks, before /implement) |
-| `/implement`    | Execute all tasks to build the feature according to the plan         |
+### متغيرات البيئة
 
-### Environment Variables
+| المتغير | الوصف |
+|---------|-------|
+| `SPECIFY_FEATURE` | تحديد الميزة الحالية في بيئات بدون Git (مثال: 001-feature-name) |
 
-| Variable         | Description                                                                                    |
-|------------------|------------------------------------------------------------------------------------------------|
-| `SPECIFY_FEATURE` | Override feature detection for non-Git repositories. Set to the feature directory name (e.g., `001-photo-albums`) to work on a specific feature when not using Git branches.<br/>**Must be set in the context of the agent you're working with prior to using `/plan` or follow-up commands. |
+## 📚 الفلسفة الأساسية
 
-## 📚 Core philosophy
+- التركيز على **النية** قبل التنفيذ.
+- المواصفة كمنبع متعدد المراحل (Clarify → Plan → Tasks → Implement → Analyze).
+- تقليل إعادة العمل عبر الكشف المبكر للغموض.
+- دمج مبادئ تنظيمية (الدستور) لضبط الجودة والاتساق.
 
-Spec-Driven Development is a structured process that emphasizes:
+## 🌟 المراحل التطويرية
 
-- **Intent-driven development** where specifications define the "_what_" before the "_how_"
-- **Rich specification creation** using guardrails and organizational principles
-- **Multi-step refinement** rather than one-shot code generation from prompts
-- **Heavy reliance** on advanced AI model capabilities for specification interpretation
+| المرحلة | التركيز | أنشطة |
+|---------|---------|-------|
+| الانطلاق من الصفر (Greenfield) | توليد شامل | إنشاء مواصفة، خطة، مهام، تنفيذ |
+| الاستكشاف الإبداعي | حلول متعددة متوازية | مقارنة أطر/معماريات |
+| التحسين التكراري | تحديث/تطوير | إضافة ميزات، صيانة، حداثة تقنية |
 
-## 🌟 Development phases
+## 🎯 الأهداف التجريبية
 
-| Phase | Focus | Key Activities |
-|-------|-------|----------------|
-| **0-to-1 Development** ("Greenfield") | Generate from scratch | <ul><li>Start with high-level requirements</li><li>Generate specifications</li><li>Plan implementation steps</li><li>Build production-ready applications</li></ul> |
-| **Creative Exploration** | Parallel implementations | <ul><li>Explore diverse solutions</li><li>Support multiple technology stacks & architectures</li><li>Experiment with UX patterns</li></ul> |
-| **Iterative Enhancement** ("Brownfield") | Brownfield modernization | <ul><li>Add features iteratively</li><li>Modernize legacy systems</li><li>Adapt processes</li></ul> |
+1. استقلالية التقنية: دعم مكدسات متعددة.  
+2. قيود المؤسسات: امتثال، ممارسات هندسية، قياس.  
+3. ارتباط المستخدم: قصص / سيناريوهات واقعية.  
+4. الإبداع والتكرار: السماح بالمقارنة والتحسين السريع.
 
-## 🎯 Experimental goals
+## 🔧 المتطلبات المسبقة
 
-Our research and experimentation focus on:
+- Linux / macOS (أو WSL2)
+- Python 3.11+
+- Git
+- أداة uv
+- وكيل AI مدعوم
 
-### Technology independence
+## 📖 تعلّم المزيد
 
-- Create applications using diverse technology stacks
-- Validate the hypothesis that Spec-Driven Development is a process not tied to specific technologies, programming languages, or frameworks
-
-### Enterprise constraints
-
-- Demonstrate mission-critical application development
-- Incorporate organizational constraints (cloud providers, tech stacks, engineering practices)
-- Support enterprise design systems and compliance requirements
-
-### User-centric development
-
-- Build applications for different user cohorts and preferences
-- Support various development approaches (from vibe-coding to AI-native development)
-
-### Creative & iterative processes
-
-- Validate the concept of parallel implementation exploration
-- Provide robust iterative feature development workflows
-- Extend processes to handle upgrades and modernization tasks
-
-## 🔧 Prerequisites
-
-- **Linux/macOS** (or WSL2 on Windows)
-- AI coding agent: [Claude Code](https://www.anthropic.com/claude-code), [GitHub Copilot](https://code.visualstudio.com/), [Gemini CLI](https://github.com/google-gemini/gemini-cli), [Cursor](https://cursor.sh/), [Qwen CLI](https://github.com/QwenLM/qwen-code), [opencode](https://opencode.ai/), [Codex CLI](https://github.com/openai/codex), or [Windsurf](https://windsurf.com/)
-- [uv](https://docs.astral.sh/uv/) for package management
-- [Python 3.11+](https://www.python.org/downloads/)
-- [Git](https://git-scm.com/downloads)
-
-If you encounter issues with an agent, please open an issue so we can refine the integration.
-
-## 📖 Learn more
-
-- **[Complete Spec-Driven Development Methodology](./spec-driven.md)** - Deep dive into the full process
-- **[Detailed Walkthrough](#-detailed-process)** - Step-by-step implementation guide
+- المنهجية الكاملة: [spec-driven.md](./spec-driven.md)
 
 ---
 
-## 📋 Detailed process
+## 📋 العملية التفصيلية (موجز)
 
-<details>
-<summary>Click to expand the detailed step-by-step walkthrough</summary>
+1. `/constitution` صياغة المبادئ.  
+2. `/specify` كتابة المواصفة (ماذا ولماذا).  
+3. `/clarify` إزالة الغموض.  
+4. `/plan` توليد خطة ومعمارية ووثائق فرعية (بحث، نموذج بيانات، عقود...).  
+5. `/tasks` اشتقاق مهام قابلة للتنفيذ.  
+6. `/analyze` فحص تغطية/اتساق قبل التنفيذ.  
+7. `/implement` تنفيذ منضبط (اعتمادات + توازي مضبوط).  
 
-You can use the Specify CLI to bootstrap your project, which will bring in the required artifacts in your environment. Run:
+(انظر المستند الأصلي للفقرات الشارحة إن رغبت بالإنجليزية: الملف spec-driven.md ما زال مرجعاً تقنياً.)
 
+## 🔍 الاستكشاف وحل المشكلات (Troubleshooting)
+
+### مشكلة اعتماد Git
+
+تحقق من:
 ```bash
-specify init <project_name>
+git --version
 ```
+وحدّث إعدادات الاعتماد (Credential Manager) عند الحاجة.
 
-Or initialize in the current directory:
+### غياب ملف متوقع
 
-```bash
-specify init --here
-# Skip confirmation when the directory already has files
-specify init --here --force
-```
+- مفقود `مواصفة.md` → أعد `/specify`
+- مفقود `تخطيط.md` → شغّل `/plan`
+- مفقود `مهام.md` → شغّل `/tasks`
+- تحذير Clarifications غائبة → أعد `/clarify`
 
-![Specify CLI bootstrapping a new project in the terminal](./media/specify_cli.gif)
+### تعارض أو بناء ناقص
 
-You will be prompted to select the AI agent you are using. You can also proactively specify it directly in the terminal:
+نفّذ `/analyze` قبل `/implement` لضبط التغطية.
 
-```bash
-specify init <project_name> --ai claude
-specify init <project_name> --ai gemini
-specify init <project_name> --ai copilot
-specify init <project_name> --ai cursor
-specify init <project_name> --ai qwen
-specify init <project_name> --ai opencode
-specify init <project_name> --ai codex
-specify init <project_name> --ai windsurf
-# Or in current directory:
-specify init --here --ai claude
-specify init --here --ai codex
-# Force merge into a non-empty current directory
-specify init --here --force --ai claude
-```
-
-The CLI will check if you have Claude Code, Gemini CLI, Cursor CLI, Qwen CLI, opencode, or Codex CLI installed. If you do not, or you prefer to get the templates without checking for the right tools, use `--ignore-agent-tools` with your command:
-
-```bash
-specify init <project_name> --ai claude --ignore-agent-tools
-```
-
-### **STEP 1:** Establish project principles
-
-Go to the project folder and run your AI agent. In our example, we're using `claude`.
-
-![Bootstrapping Claude Code environment](./media/bootstrap-claude-code.gif)
-
-You will know that things are configured correctly if you see the `/constitution`, `/specify`, `/plan`, `/tasks`, and `/implement` commands available.
-
-The first step should be establishing your project's governing principles using the `/constitution` command. This helps ensure consistent decision-making throughout all subsequent development phases:
-
-```text
-/constitution Create principles focused on code quality, testing standards, user experience consistency, and performance requirements. Include governance for how these principles should guide technical decisions and implementation choices.
-```
-
-This step creates or updates the `/memory/constitution.md` file with your project's foundational guidelines that the AI agent will reference during specification, planning, and implementation phases.
-
-### **STEP 2:** Create project specifications
-
-With your project principles established, you can now create the functional specifications. Use the `/specify` command and then provide the concrete requirements for the project you want to develop.
-
->[!IMPORTANT]
->Be as explicit as possible about _what_ you are trying to build and _why_. **Do not focus on the tech stack at this point**.
-
-An example prompt:
-
-```text
-Develop Taskify, a team productivity platform. It should allow users to create projects, add team members,
-assign tasks, comment and move tasks between boards in Kanban style. In this initial phase for this feature,
-let's call it "Create Taskify," let's have multiple users but the users will be declared ahead of time, predefined.
-I want five users in two different categories, one product manager and four engineers. Let's create three
-different sample projects. Let's have the standard Kanban columns for the status of each task, such as "To Do,"
-"In Progress," "In Review," and "Done." There will be no login for this application as this is just the very
-first testing thing to ensure that our basic features are set up. For each task in the UI for a task card,
-you should be able to change the current status of the task between the different columns in the Kanban work board.
-You should be able to leave an unlimited number of comments for a particular card. You should be able to, from that task
-card, assign one of the valid users. When you first launch Taskify, it's going to give you a list of the five users to pick
-from. There will be no password required. When you click on a user, you go into the main view, which displays the list of
-projects. When you click on a project, you open the Kanban board for that project. You're going to see the columns.
-You'll be able to drag and drop cards back and forth between different columns. You will see any cards that are
-assigned to you, the currently logged in user, in a different color from all the other ones, so you can quickly
-see yours. You can edit any comments that you make, but you can't edit comments that other people made. You can
-delete any comments that you made, but you can't delete comments anybody else made.
-```
-
-After this prompt is entered, you should see Claude Code kick off the planning and spec drafting process. Claude Code will also trigger some of the built-in scripts to set up the repository.
-
-Once this step is completed, you should have a new branch created (e.g., `001-create-taskify`), as well as a new specification in the `specs/001-create-taskify` directory.
-
-The produced specification should contain a set of user stories and functional requirements, as defined in the template.
-
-At this stage, your project folder contents should resemble the following:
-
-```text
-├── memory
-│	 └── constitution.md
-├── scripts
-│	 ├── check-prerequisites.sh
-│	 ├── common.sh
-│	 ├── create-new-feature.sh
-│	 ├── setup-plan.sh
-│	 └── update-claude-md.sh
-├── specs
-│	 └── 001-create-taskify
-│	     └── spec.md
-└── templates
-    ├── plan-template.md
-    ├── spec-template.md
-    └── tasks-template.md
-```
-
-### **STEP 3:** Functional specification clarification (required before planning)
-
-With the baseline specification created, you can go ahead and clarify any of the requirements that were not captured properly within the first shot attempt.
-
-You should run the structured clarification workflow **before** creating a technical plan to reduce rework downstream.
-
-Preferred order:
-1. Use `/clarify` (structured) – sequential, coverage-based questioning that records answers in a Clarifications section.
-2. Optionally follow up with ad-hoc free-form refinement if something still feels vague.
-
-If you intentionally want to skip clarification (e.g., spike or exploratory prototype), explicitly state that so the agent doesn't block on missing clarifications.
-
-Example free-form refinement prompt (after `/clarify` if still needed):
-
-```text
-For each sample project or project that you create there should be a variable number of tasks between 5 and 15
-tasks for each one randomly distributed into different states of completion. Make sure that there's at least
-one task in each stage of completion.
-```
-
-You should also ask Claude Code to validate the **Review & Acceptance Checklist**, checking off the things that are validated/pass the requirements, and leave the ones that are not unchecked. The following prompt can be used:
-
-```text
-Read the review and acceptance checklist, and check off each item in the checklist if the feature spec meets the criteria. Leave it empty if it does not.
-```
-
-It's important to use the interaction with Claude Code as an opportunity to clarify and ask questions around the specification - **do not treat its first attempt as final**.
-
-### **STEP 4:** Generate a plan
-
-You can now be specific about the tech stack and other technical requirements. You can use the `/plan` command that is built into the project template with a prompt like this:
-
-```text
-We are going to generate this using .NET Aspire, using Postgres as the database. The frontend should use
-Blazor server with drag-and-drop task boards, real-time updates. There should be a REST API created with a projects API,
-tasks API, and a notifications API.
-```
-
-The output of this step will include a number of implementation detail documents, with your directory tree resembling this:
-
-```text
-.
-├── CLAUDE.md
-├── memory
-│	 └── constitution.md
-├── scripts
-│	 ├── check-prerequisites.sh
-│	 ├── common.sh
-│	 ├── create-new-feature.sh
-│	 ├── setup-plan.sh
-│	 └── update-claude-md.sh
-├── specs
-│	 └── 001-create-taskify
-│	     ├── contracts
-│	     │	 ├── api-spec.json
-│	     │	 └── signalr-spec.md
-│	     ├── data-model.md
-│	     ├── plan.md
-│	     ├── quickstart.md
-│	     ├── research.md
-│	     └── spec.md
-└── templates
-    ├── CLAUDE-template.md
-    ├── plan-template.md
-    ├── spec-template.md
-    └── tasks-template.md
-```
-
-Check the `research.md` document to ensure that the right tech stack is used, based on your instructions. You can ask Claude Code to refine it if any of the components stand out, or even have it check the locally-installed version of the platform/framework you want to use (e.g., .NET).
-
-Additionally, you might want to ask Claude Code to research details about the chosen tech stack if it's something that is rapidly changing (e.g., .NET Aspire, JS frameworks), with a prompt like this:
-
-```text
-I want you to go through the implementation plan and implementation details, looking for areas that could
-benefit from additional research as .NET Aspire is a rapidly changing library. For those areas that you identify that
-require further research, I want you to update the research document with additional details about the specific
-versions that we are going to be using in this Taskify application and spawn parallel research tasks to clarify
-any details using research from the web.
-```
-
-During this process, you might find that Claude Code gets stuck researching the wrong thing - you can help nudge it in the right direction with a prompt like this:
-
-```text
-I think we need to break this down into a series of steps. First, identify a list of tasks
-that you would need to do during implementation that you're not sure of or would benefit
-from further research. Write down a list of those tasks. And then for each one of these tasks,
-I want you to spin up a separate research task so that the net results is we are researching
-all of those very specific tasks in parallel. What I saw you doing was it looks like you were
-researching .NET Aspire in general and I don't think that's gonna do much for us in this case.
-That's way too untargeted research. The research needs to help you solve a specific targeted question.
-```
-
->[!NOTE]
->Claude Code might be over-eager and add components that you did not ask for. Ask it to clarify the rationale and the source of the change.
-
-### **STEP 5:** Have Claude Code validate the plan
-
-With the plan in place, you should have Claude Code run through it to make sure that there are no missing pieces. You can use a prompt like this:
-
-```text
-Now I want you to go and audit the implementation plan and the implementation detail files.
-Read through it with an eye on determining whether or not there is a sequence of tasks that you need
-to be doing that are obvious from reading this. Because I don't know if there's enough here. For example,
-when I look at the core implementation, it would be useful to reference the appropriate places in the implementation
-details where it can find the information as it walks through each step in the core implementation or in the refinement.
-```
-
-This helps refine the implementation plan and helps you avoid potential blind spots that Claude Code missed in its planning cycle. Once the initial refinement pass is complete, ask Claude Code to go through the checklist once more before you can get to the implementation.
-
-You can also ask Claude Code (if you have the [GitHub CLI](https://docs.github.com/en/github-cli/github-cli) installed) to go ahead and create a pull request from your current branch to `main` with a detailed description, to make sure that the effort is properly tracked.
-
->[!NOTE]
->Before you have the agent implement it, it's also worth prompting Claude Code to cross-check the details to see if there are any over-engineered pieces (remember - it can be over-eager). If over-engineered components or decisions exist, you can ask Claude Code to resolve them. Ensure that Claude Code follows the [constitution](base/memory/constitution.md) as the foundational piece that it must adhere to when establishing the plan.
-
-### STEP 6: Implementation
-
-Once ready, use the `/implement` command to execute your implementation plan:
-
-```text
-/implement
-```
-
-The `/implement` command will:
-- Validate that all prerequisites are in place (constitution, spec, plan, and tasks)
-- Parse the task breakdown from `tasks.md`
-- Execute tasks in the correct order, respecting dependencies and parallel execution markers
-- Follow the TDD approach defined in your task plan
-- Provide progress updates and handle errors appropriately
-
->[!IMPORTANT]
->The AI agent will execute local CLI commands (such as `dotnet`, `npm`, etc.) - make sure you have the required tools installed on your machine.
-
-Once the implementation is complete, test the application and resolve any runtime errors that may not be visible in CLI logs (e.g., browser console errors). You can copy and paste such errors back to your AI agent for resolution.
-
-</details>
-
----
-
-## 🔍 Troubleshooting
-
-### Git Credential Manager on Linux
-
-If you're having issues with Git authentication on Linux, you can install Git Credential Manager:
-
-```bash
-#!/usr/bin/env bash
-set -e
-echo "Downloading Git Credential Manager v2.6.1..."
-wget https://github.com/git-ecosystem/git-credential-manager/releases/download/v2.6.1/gcm-linux_amd64.2.6.1.deb
-echo "Installing Git Credential Manager..."
-sudo dpkg -i gcm-linux_amd64.2.6.1.deb
-echo "Configuring Git to use GCM..."
-git config --global credential.helper manager
-echo "Cleaning up..."
-rm gcm-linux_amd64.2.6.1.deb
-```
-
-## 👥 Maintainers
+## 👥 المشرفون
 
 - Den Delimarsky ([@localden](https://github.com/localden))
 - John Lam ([@jflam](https://github.com/jflam))
 
-## 💬 Support
+## 💬 الدعم
 
-For support, please open a [GitHub issue](https://github.com/github/spec-kit/issues/new). We welcome bug reports, feature requests, and questions about using Spec-Driven Development.
+افتح تذكرة:  
+https://github.com/OAbouHajar/spec-kit-ar/issues/new
 
-## 🙏 Acknowledgements
+## 🙏 الشكر والتقدير
 
-This project is heavily influenced by and based on the work and research of [John Lam](https://github.com/jflam).
+المشروع متأثر بأبحاث وعمل [John Lam](https://github.com/jflam).
 
-## 📄 License
+## 📄 الترخيص
 
-This project is licensed under the terms of the MIT open source license. Please refer to the [LICENSE](./LICENSE) file for the full terms.
+مرخّص وفق MIT. راجع ملف [LICENSE](./LICENSE).
