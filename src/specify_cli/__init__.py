@@ -432,8 +432,22 @@ def init_git_repo(project_path: Path, quiet: bool = False) -> bool:
 
 
 def download_template_from_github(ai_assistant: str, download_dir: Path, *, script_type: str = "sh", verbose: bool = True, show_progress: bool = True, client: httpx.Client = None, debug: bool = False, github_token: str = None) -> Tuple[Path, dict]:
-    repo_owner = "github"
-    repo_name = "spec-kit"
+    """
+    Download template release asset.
+
+    Repository source resolution precedence:
+    1. ENV VAR SPEC_KIT_REPO="owner/name"
+    2. Fallback to Arabic fork (OAbouHajar/spec-kit-ar)
+    (الهدف دعم التعريب عبر الاعتماد على إصدارات المستودع المفصول)
+
+    يمكن تغيير المستودع سريعاً:
+        SPEC_KIT_REPO=github/spec-kit  (للعودة للأصل)
+        SPEC_KIT_REPO=OAbouHajar/spec-kit-ar  (للتعريب)
+    """
+    repo_env = os.getenv("SPEC_KIT_REPO", "OAbouHajar/spec-kit-ar")
+    if "/" not in repo_env:
+        raise RuntimeError(f"Invalid SPEC_KIT_REPO value: {repo_env} (expected owner/name)")
+    repo_owner, repo_name = repo_env.split("/", 1)
     if client is None:
         client = httpx.Client(verify=ssl_context)
     
@@ -474,10 +488,60 @@ def download_template_from_github(ai_assistant: str, download_dir: Path, *, scri
     asset = matching_assets[0] if matching_assets else None
 
     if asset is None:
-        console.print(f"[red]No matching release asset found[/red] for [bold]{ai_assistant}[/bold] (expected pattern: [bold]{pattern}[/bold])")
+        # Fallback: لا يوجد إصدار يحوي الأصول (Assets) المطلوبة في الـ fork العربي
+        console.print(f"[yellow]لم يتم العثور على أصل إصدار مطابق[/yellow] لـ [bold]{ai_assistant}[/bold] (النمط: {pattern})")
         asset_names = [a.get('name', '?') for a in assets]
-        console.print(Panel("\n".join(asset_names) or "(no assets)", title="Available Assets", border_style="yellow"))
-        raise typer.Exit(1)
+        console.print(Panel(
+            ("Available release assets:\n" + "\n".join(asset_names)) if asset_names else "لا توجد أصول منشورة",
+            title="Available Assets",
+            border_style="yellow"
+        ))
+        console.print("[cyan]محاولة المسار البديل: استنساخ (shallow clone) المستودع ونسخ القوالب مباشرةً.[/cyan]")
+        try:
+            tmp_dir = tempfile.mkdtemp(prefix="spec-kit-fallback-")
+            repo_url = f"https://github.com/{repo_owner}/{repo_name}.git"
+            # استنساخ سطحي (آخر كوميـت فقط) لتقليل الحجم
+            subprocess.run(["git", "clone", "--depth", "1", repo_url, tmp_dir], check=True, capture_output=True)
+            # سننشئ أرشيف ZIP يدوي مؤقت يحاكي المسار المتوقع لاحقاً في سير الاستخراج
+            manual_zip = download_dir / f"fallback-{repo_name}.zip"
+            with zipfile.ZipFile(manual_zip, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+                base_path = Path(tmp_dir)
+                # نحدد المجلدات والملفات المهمة لتوليد مشروع أوّلي
+                include_roots = [
+                    "templates",
+                    "scripts",
+                    "memory",
+                    "spec-driven.md",
+                    "README.md",
+                    "LICENSE",
+                ]
+                for rel in include_roots:
+                    p = base_path / rel
+                    if p.exists():
+                        if p.is_dir():
+                            for sub in p.rglob("*"):
+                                if sub.is_file():
+                                    zf.write(sub, arcname=str(sub.relative_to(base_path)))
+                        else:
+                            zf.write(p, arcname=str(p.relative_to(base_path)))
+            # نعيد المسار وكأننا حملنا أصل إصدار
+            console.print("[green]استخدام المسار البديل بنجاح (Fallback clone).[/green]")
+            zip_path = manual_zip
+            metadata = {
+                "filename": manual_zip.name,
+                "size": manual_zip.stat().st_size,
+                "release": "fallback-clone",
+                "asset_url": repo_url
+            }
+            return zip_path, metadata
+        except subprocess.CalledProcessError as ce:
+            console.print("[red]فشل الاستنساخ fallback (git clone).[/red]")
+            console.print(Panel(ce.stderr.decode() if hasattr(ce, 'stderr') and ce.stderr else str(ce), title="Clone Error", border_style="red"))
+            raise typer.Exit(1)
+        except Exception as fe:
+            console.print("[red]فشل المسار البديل (fallback) أثناء إعداد الأرشيف.[/red]")
+            console.print(Panel(str(fe), title="Fallback Packaging Error", border_style="red"))
+            raise typer.Exit(1)
 
     download_url = asset["browser_download_url"]
     filename = asset["name"]
