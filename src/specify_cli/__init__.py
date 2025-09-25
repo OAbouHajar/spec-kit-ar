@@ -464,14 +464,87 @@ def download_template_from_github(ai_assistant: str, download_dir: Path, *, scri
         )
         status = response.status_code
         if status != 200:
-            msg = f"GitHub API returned {status} for {api_url}"
-            if debug:
-                msg += f"\nResponse headers: {response.headers}\nBody (truncated 500): {response.text[:500]}"
-            raise RuntimeError(msg)
+            # Fallback مبكر عند فشل استدعاء API (مثال: 404 لعدم وجود إصدارات منشورة)
+            console.print(f"[yellow]GitHub API returned {status} for {api_url} — switching to fallback clone mode[/yellow]")
+            try:
+                tmp_dir = tempfile.mkdtemp(prefix="spec-kit-fallback-api-")
+                repo_url = f"https://github.com/{repo_owner}/{repo_name}.git"
+                subprocess.run(["git", "clone", "--depth", "1", repo_url, tmp_dir], check=True, capture_output=True)
+                manual_zip = download_dir / f"fallback-{repo_name}.zip"
+                with zipfile.ZipFile(manual_zip, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+                    base_path = Path(tmp_dir)
+                    include_roots = [
+                        "templates",
+                        "scripts",
+                        "memory",
+                        "spec-driven.md",
+                        "README.md",
+                        "LICENSE",
+                    ]
+                    for rel in include_roots:
+                        p = base_path / rel
+                        if p.exists():
+                            if p.is_dir():
+                                for sub in p.rglob("*"):
+                                    if sub.is_file():
+                                        zf.write(sub, arcname=str(sub.relative_to(base_path)))
+                            else:
+                                zf.write(p, arcname=str(p.relative_to(base_path)))
+                console.print("[green]Fallback clone packaging succeeded.[/green]")
+                metadata = {
+                    "filename": manual_zip.name,
+                    "size": manual_zip.stat().st_size,
+                    "release": f"fallback-clone-{status}",
+                    "asset_url": repo_url
+                }
+                return manual_zip, metadata
+            except subprocess.CalledProcessError as ce:
+                console.print("[red]Fallback clone failed (git error).[/red]")
+                console.print(Panel(ce.stderr.decode() if hasattr(ce, 'stderr') and ce.stderr else str(ce), title="Clone Error", border_style="red"))
+                raise typer.Exit(1)
+            except Exception as fe:
+                console.print("[red]Fallback packaging failed after API error.[/red]")
+                console.print(Panel(str(fe), title="Fallback Error", border_style="red"))
+                raise typer.Exit(1)
         try:
             release_data = response.json()
         except ValueError as je:
-            raise RuntimeError(f"Failed to parse release JSON: {je}\nRaw (truncated 400): {response.text[:400]}")
+            # محاولة fallback عند فشل JSON parsing (استجابة غير متوقعة)
+            console.print("[yellow]Failed to parse release JSON — attempting fallback clone.[/yellow]")
+            try:
+                tmp_dir = tempfile.mkdtemp(prefix="spec-kit-fallback-json-")
+                repo_url = f"https://github.com/{repo_owner}/{repo_name}.git"
+                subprocess.run(["git", "clone", "--depth", "1", repo_url, tmp_dir], check=True, capture_output=True)
+                manual_zip = download_dir / f"fallback-{repo_name}.zip"
+                with zipfile.ZipFile(manual_zip, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+                    base_path = Path(tmp_dir)
+                    include_roots = [
+                        "templates",
+                        "scripts",
+                        "memory",
+                        "spec-driven.md",
+                        "README.md",
+                        "LICENSE",
+                    ]
+                    for rel in include_roots:
+                        p = base_path / rel
+                        if p.exists():
+                            if p.is_dir():
+                                for sub in p.rglob("*"):
+                                    if sub.is_file():
+                                        zf.write(sub, arcname=str(sub.relative_to(base_path)))
+                            else:
+                                zf.write(p, arcname=str(p.relative_to(base_path)))
+                console.print("[green]Fallback clone packaging succeeded (JSON failure).[/green]")
+                metadata = {
+                    "filename": manual_zip.name,
+                    "size": manual_zip.stat().st_size,
+                    "release": "fallback-clone-json",
+                    "asset_url": repo_url
+                }
+                return manual_zip, metadata
+            except Exception as fe:
+                raise RuntimeError(f"Failed parsing JSON and fallback clone failed: {fe}") from je
     except Exception as e:
         console.print(f"[red]Error fetching release information[/red]")
         console.print(Panel(str(e), title="Fetch Error", border_style="red"))
